@@ -1842,7 +1842,7 @@ svg.lc{max-width:100%}
   const LANG={French:"FR",German:"DE",Spanish:"ES",Portuguese:"PT",Italian:"IT",Japanese:"JA",Chinese:"ZH",Korean:"KO",Arabic:"AR",Dutch:"NL"};
   const $=s=>document.querySelector(s);
   const store={get(k,d){try{const v=localStorage.getItem("mp_"+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem("mp_"+k,JSON.stringify(v));}catch(e){}}};
-  const UILANG=store.get("lang","en")==="fr"?"fr":"en";const LOCALE=UILANG==="fr"?"fr-FR":"en-GB";
+  const UILANG="en";const LOCALE=UILANG==="fr"?"fr-FR":"en-GB";
   let DATA=null, edition=null, section="all", region="All", query="", view=store.get("view","cards"), mode="edition";
   let visible=[], curIdx=-1, panel=null, lastFocus=null;
   let saved=store.get("saved",{});
@@ -3833,8 +3833,7 @@ svg.lc{max-width:100%}
   }finally{frBusy=false;}}
   if(UILANG==="fr"){document.documentElement.lang="fr";let q=false;const mo=new MutationObserver(()=>{if(frBusy||q)return;q=true;requestAnimationFrame(()=>{q=false;frTranslate(document.body);});});mo.observe(document.body,{childList:true,subtree:true,characterData:true});
     loadFr().then(()=>{if(DATA){applyFr(DATA);render();showPage();}frTranslate(document.body);});}
-  (function(){const g=document.querySelector(".controls .group");if(!g)return;const b=document.createElement("button");b.type="button";b.className="mbtn langbtn";b.id="langBtn";b.setAttribute("data-nofr","");b.title=UILANG==="fr"?"Read in English":"Lire en français";b.setAttribute("aria-label",b.title);b.textContent=UILANG==="fr"?"EN":"FR";
-    b.addEventListener("click",()=>{store.set("lang",UILANG==="fr"?"en":"fr");location.reload();});g.insertBefore(b,g.firstChild);})();
+  
   // ===== round 4: badges, search, calendar, print view, map help =====
   let cNew=new Set();
   const allContractKeys=()=>{const o=[];SEGS.forEach(s=>{const D=segData(s.key);(D.open||[]).concat(D.awarded||[]).forEach(t=>o.push(s.key+"|"+t.id));});return o;};
